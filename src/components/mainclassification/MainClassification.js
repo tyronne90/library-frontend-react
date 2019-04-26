@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import axios from "axios";
-import AddMainClass from "./AddMainClass";
+import MainClass from "./MainClass";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default class extends Component {
@@ -13,7 +13,6 @@ export default class extends Component {
     this.setState({
       [e.target.id]: e.target.value
     });
-
     // console.log(e.target.value);
   };
 
@@ -44,18 +43,17 @@ export default class extends Component {
 
   handleClick = e => {
     e.preventDefault();
-
     // console.log("hello");
     console.log(this.state.mainClassName);
     const mainClass = {
       mainClassName: this.state.mainClassName
     };
-
+    
     this.setState({
       mainClassName: ""
     });
 
-    AddMainClass(mainClass);
+    MainClass.AddMainClass(mainClass);
     console.log(mainClass);
 
     // This steps to add mainclassification by using axios 3rd party
