@@ -1,31 +1,31 @@
 import React, { Component } from "react";
 import SubClass from "./SubClass";
 
+import "@fortawesome/fontawesome-free/css/all.min.css";
+
 export default class AddSubClassification extends Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      subClassId: "",
-      subClassName: "",
-      mainClassId: "",
-      getMainClassId: []
-    };
-  }
+  state = {
+    subClassId: "",
+    subClassName: "",
+    mainClassId: "",
+    getMainClassId: [],
+    getAllSubClassification: []
+  };
 
   txtOnChange = e => {
     this.setState({
-      [e.target.id]: e.target.value
-    });
-    console.log(e.target.value);
-  };
-
-  handleChange = e => {
-    this.setState({
+      [e.target.id]: e.target.value,
       mainClassId: e.target.value
     });
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
+
+  // handleChange = e => {
+  //   this.setState({
+  //     mainClassId: e.target.value
+  //   });
+  //   console.log(e.target.value);
+  // };
 
   handleClick = e => {
     e.preventDefault();
@@ -33,7 +33,9 @@ export default class AddSubClassification extends Component {
     const subClass = {
       subClassId: this.state.subClassId,
       subClassName: this.state.subClassName,
-      mainClassId: this.state.mainClassId
+      mainClassification: {
+        mainClassId: this.state.mainClassId
+      }
     };
 
     this.setState({
@@ -58,9 +60,31 @@ export default class AddSubClassification extends Component {
       .catch(error => this.setState({ error, isLoading: false }));
   }
 
+  fetchAllMainClass() {
+    fetch(`http://localhost:8080/library/getAllSubClass`)
+      .then(response => response.json())
+      .then(data =>
+        this.setState({
+          getAllSubClassification: data,
+          isLoading: false
+        })
+      )
+      .catch(error => this.setState({ error, isLoading: false }));
+  }
+
   componentDidMount() {
     this.FetchMainClassId();
+    this.fetchAllMainClass();
   }
+
+  handleDelete = subClassId => {
+    SubClass.DeleteSubClass(subClassId);
+    console.log(" Successfully deleted " + subClassId);
+  };
+
+  handleUpdate = subClassId => {
+    console.log(subClassId);
+  };
 
   render() {
     return (
@@ -80,8 +104,7 @@ export default class AddSubClassification extends Component {
             id="subClassName"
           />
 
-          {/* onChange={e => this.handleChange(e)} */}
-          <select id="mainClassId" onChange={e => this.handleChange(e)}>
+          <select id="mainClassId" onChange={e => this.txtOnChange(e)}>
             <option>--select--</option>
             {this.state.getMainClassId.map(e => (
               <option key={e.mainClassId} value={e.mainClassId}>
@@ -94,6 +117,43 @@ export default class AddSubClassification extends Component {
             Add
           </button>
         </form>
+
+        {this.state.getAllSubClassification.map(fetchSubClassification => {
+          const {
+            subClassId,
+            subClassName,
+            mainClassification: { mainClassId }
+          } = fetchSubClassification;
+          return (
+            <div key={subClassId}>
+              <table border="1">
+                <tbody>
+                  <tr>
+                    <td> {subClassId} </td>
+                    <td> {subClassName} </td>
+                    <td> {mainClassId} </td>
+                    <td>
+                      <button
+                        type="submit"
+                        onClick={() => this.handleUpdate(subClassId)}
+                      >
+                        <i className="fa fa-pencil-alt" />
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="submit"
+                        onClick={() => this.handleDelete(subClassId)}
+                      >
+                        <i className="fas fa-trash-alt" />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          );
+        })}
       </div>
     );
   }

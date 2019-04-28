@@ -12,5 +12,23 @@
       "mainClassName": "asdf",
       "id": 3
     }
+  ],
+  "subclassification": [
+    {
+      "subClass": {
+        "subClassId": "S05",
+        "subClassName": "subclass05",
+        "mainClassId": "2"
+      },
+      "id": 1
+    },
+    {
+      "subClass": {
+        "subClassId": "S05",
+        "subClassName": "subclass05",
+        "mainClassId": "2"
+      },
+      "id": 2
+    }
   ]
 }

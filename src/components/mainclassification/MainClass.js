@@ -8,18 +8,12 @@ function AddMainClass(data) {
     body: JSON.stringify(data)
   });
 }
-
-function FetchMainClass() {
-  // fetch(`http://localhost:8080/library/getAllMainClass`)
-  //   .then(response => response.json())
-  //   .then(data =>
-  //     this.setState({
-  //       getMainClass: data,
-  //       isLoading: false
-  //     })
-  //   )
-  //   .catch(error => this.setState({ error, isLoading: false }));
+function deleteEmployee(id) {
+  fetch('http://localhost:5118/api/employeedetails/deleteemployeedetails/' + id, {
+    method: 'DELETE',
+    mode: 'CORS'
+  })
 }
 
-export default { AddMainClass, FetchMainClass };
-// export default AddMainClass;
+
+export default { AddMainClass };
