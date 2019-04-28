@@ -15,9 +15,9 @@ function DeleteSubClass(subClassId) {
   });
 }
 
-function UpdateSubClass(subClassId, data) {
+function UpdateSubClass(data) {
   return fetch(
-    "http://localhost:8080/library/getAllSubClassById/" + subClassId,
+    "http://localhost:8080/library/updateSubClassification",
     {
       method: "PUT",
       headers: {

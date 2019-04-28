@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 
 // import MainClassification from "./components/mainclassification/MainClassification";
-import SubClassification from "./components/subclassification/SubClassification";
+//import SubClassification from "./components/subclassification/SubClassification";
+import SubClassIndex from "./components/subclassification/SubClassIndex";
 
 class App extends Component {
   render() {
@@ -10,7 +11,7 @@ class App extends Component {
       <div>
         <h1> Library</h1>
         {/* <MainClassification /> */}
-        <SubClassification />
+        <SubClassIndex />
       </div>
     );
   }

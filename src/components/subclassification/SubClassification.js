@@ -82,8 +82,21 @@ export default class AddSubClassification extends Component {
     console.log(" Successfully deleted " + subClassId);
   };
 
+  handleEdit = subClassId => {
+    this.props.history.push(`/EditSubClass/${subClassId}`);
+    console.log(subClassId);
+  };
   handleUpdate = subClassId => {
     console.log(subClassId);
+    const subClassUpdate = {
+      subClassId: "S05", //this.state.subClassId,
+      subClassName: "aa", //this.state.subClassName,
+      mainClassification: {
+        mainClassId: "2" //this.state.mainClassId
+      }
+    };
+    SubClass.UpdateSubClass(subClassUpdate);
+    console.log(subClassUpdate);
   };
 
   render() {
@@ -126,27 +139,32 @@ export default class AddSubClassification extends Component {
           } = fetchSubClassification;
           return (
             <div key={subClassId}>
-              <table border="1">
+              <table border="0" width="40%">
                 <tbody>
                   <tr>
-                    <td> {subClassId} </td>
-                    <td> {subClassName} </td>
-                    <td> {mainClassId} </td>
-                    <td>
+                    <td width="20%"> {subClassId} </td>
+                    <td width="30%"> {subClassName} </td>
+                    <td width="10%"> {mainClassId} </td>
+                    <td align="right">
                       <button
                         type="submit"
-                        onClick={() => this.handleUpdate(subClassId)}
+                        onClick={() => this.handleEdit(subClassId)}
                       >
                         <i className="fa fa-pencil-alt" />
                       </button>
-                    </td>
-                    <td>
+
                       <button
                         type="submit"
                         onClick={() => this.handleDelete(subClassId)}
                       >
                         <i className="fas fa-trash-alt" />
                       </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="4">
+                      {" "}
+                      <hr />
                     </td>
                   </tr>
                 </tbody>

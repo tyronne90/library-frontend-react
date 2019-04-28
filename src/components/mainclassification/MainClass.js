@@ -8,12 +8,5 @@ function AddMainClass(data) {
     body: JSON.stringify(data)
   });
 }
-function deleteEmployee(id) {
-  fetch('http://localhost:5118/api/employeedetails/deleteemployeedetails/' + id, {
-    method: 'DELETE',
-    mode: 'CORS'
-  })
-}
-
 
 export default { AddMainClass };
