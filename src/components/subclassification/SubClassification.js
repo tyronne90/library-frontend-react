@@ -127,12 +127,7 @@ export default class AddSubClassification extends Component {
             ))}
           </select>
 
-          <button
-            type="submit"
-            onClick={subClassId =>
-              this.props.history.push(`/EditSubClass/${subClassId}`)
-            }
-          >
+          <button type="submit" onClick={e => this.handleClick(e)}>
             Add
           </button>
         </form>

@@ -7,7 +7,7 @@ export default class EditSubClass extends Component {
     getMainClassId: []
   };
   getSubClassification = {
-    subClassId: this.props.match.params.subClassId,
+    subClassId: "",
     subClassName: "",
     mainClassification: {
       mainClassId: "",
