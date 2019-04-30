@@ -14,8 +14,8 @@ export default class AddSubClassification extends Component {
 
   txtOnChange = e => {
     this.setState({
-      [e.target.id]: e.target.value,
-      mainClassId: e.target.value
+      [e.target.id]: e.target.value
+      // mainClassId: e.target.value
     });
     // console.log(e.target.value);
   };
