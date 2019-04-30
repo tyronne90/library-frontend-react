@@ -83,6 +83,7 @@ export default class AddSubClassification extends Component {
   };
 
   handleEdit = subClassId => {
+    // this.props.history.push(`/EditSubClass`);
     this.props.history.push(`/EditSubClass/${subClassId}`);
     console.log(subClassId);
   };
@@ -126,7 +127,12 @@ export default class AddSubClassification extends Component {
             ))}
           </select>
 
-          <button type="submit" onClick={e => this.handleClick(e)}>
+          <button
+            type="submit"
+            onClick={subClassId =>
+              this.props.history.push(`/EditSubClass/${subClassId}`)
+            }
+          >
             Add
           </button>
         </form>
@@ -135,7 +141,7 @@ export default class AddSubClassification extends Component {
           const {
             subClassId,
             subClassName,
-            mainClassification: { mainClassId }
+            mainClassification: { mainClassName }
           } = fetchSubClassification;
           return (
             <div key={subClassId}>
@@ -144,7 +150,7 @@ export default class AddSubClassification extends Component {
                   <tr>
                     <td width="20%"> {subClassId} </td>
                     <td width="30%"> {subClassName} </td>
-                    <td width="10%"> {mainClassId} </td>
+                    <td width="10%"> {mainClassName} </td>
                     <td align="right">
                       <button
                         type="submit"

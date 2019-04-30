@@ -9,7 +9,11 @@ export default class SubClassIndex extends Component {
       <Router>
         <Switch>
           <Route path="/" exact component={AddSubClassification} />
-          <Route path="/EditSubClass" exact component={EditSubClass} />
+          <Route
+            path="/EditSubClass/:subClassId"
+            exact
+            component={EditSubClass}
+          />
         </Switch>
       </Router>
     );
