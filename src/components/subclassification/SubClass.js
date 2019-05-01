@@ -27,11 +27,7 @@ function UpdateSubClass(data) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
-  })
-    .then(res => {
-      return res;
-    })
-    .catch(err => err);
+  });
 }
 
 export default { AddSubClass, DeleteSubClass, UpdateSubClass };

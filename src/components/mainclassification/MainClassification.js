@@ -68,6 +68,23 @@ export default class extends Component {
     //     });
   };
 
+  handleEdit = mainClassId => {
+    // this.props.history.push(`/EditSubClass`);
+    this.props.history.push(`/EditMainClass/${mainClassId}`);
+    console.log(mainClassId);
+  };
+
+  handleDelete = mainClassId => {
+    MainClass.DeleteMainClass(mainClassId);
+    console.log(" Successfully deleted " + mainClassId);
+    const getMainClass = this.state.getMainClass.filter(getMainClass => {
+      return getMainClass.mainClassId !== mainClassId;
+    });
+    this.setState({
+      getMainClass
+    });
+  };
+
   render() {
     return (
       <div>
@@ -96,17 +113,24 @@ export default class extends Component {
           return (
             <div key={mainClassId}>
               <table border="1">
-                <tbody>
+                <tbody width="20%">
                   <tr>
-                    <td> {mainClassId} </td>
-                    <td> {mainClassName} </td>
-                    <td>
-                      {" "}
-                      <i className="fa fa-pencil-alt" />{" "}
-                    </td>
-                    <td>
-                      {" "}
-                      <i className="fas fa-trash-alt" />{" "}
+                    {/* <td> {mainClassId} </td> */}
+                    <td width="60%"> {mainClassName} </td>
+                    <td align="right">
+                      <button
+                        type="submit"
+                        onClick={() => this.handleEdit(mainClassId)}
+                      >
+                        <i className="fa fa-pencil-alt" />
+                      </button>
+
+                      <button
+                        type="submit"
+                        onClick={() => this.handleDelete(mainClassId)}
+                      >
+                        <i className="fas fa-trash-alt" />
+                      </button>
                     </td>
                   </tr>
                 </tbody>
