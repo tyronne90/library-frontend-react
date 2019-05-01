@@ -48,9 +48,10 @@ export default class extends Component {
     const mainClass = {
       mainClassName: this.state.mainClassName
     };
-    
+    let newMainClass = [...this.state.getMainClass, mainClass];
     this.setState({
-      mainClassName: ""
+      mainClassName: "",
+      getMainClass: newMainClass
     });
 
     MainClass.AddMainClass(mainClass);

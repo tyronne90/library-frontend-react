@@ -33,23 +33,20 @@ export default class EditSubClass extends Component {
         this.props.match.params.subClassId
     )
       .then(response => response.json())
-      .then(
-        data =>
-          this.setState({
-            subClassId: data.subClassId,
-            subClassName: data.subClassName,
-            mainClassId: data.mainClassification.mainClassId,
-            mainClassName: data.mainClassification.mainClassName,
-            isLoading: false
-          })
-        // console.log(data.mainClassification.mainClassId)
+      .then(data =>
+        this.setState({
+          subClassId: data.subClassId,
+          subClassName: data.subClassName,
+          mainClassId: data.mainClassification.mainClassId,
+          mainClassName: data.mainClassification.mainClassName,
+          isLoading: false
+        })
       )
       .catch(error => this.setState({ error, isLoading: false }));
   }
   componentDidMount() {
     this.FetchSubClassById(this.subClassId);
     this.FetchMainClassId();
-    console.log(this.getSubClassification);
   }
 
   handleUpdate = e => {
@@ -63,14 +60,13 @@ export default class EditSubClass extends Component {
     };
     SubClass.UpdateSubClass(subClassUpdate);
     console.log(subClassUpdate);
+    this.props.history.push(`/`);
+    // window.location.reload();
   };
 
   txtOnChange = e => {
     this.setState({
       [e.target.id]: e.target.value
-      // mainClassification: {
-      //   mainClassId: "e.target.value"
-      // }
     });
     // console.log(e.target.value);
   };
@@ -85,7 +81,7 @@ export default class EditSubClass extends Component {
           id="subClassId"
           name="subClassId"
           value={this.state.subClassId || ""}
-          onChange={e => this.txtOnChange(e)}
+          readOnly
         />{" "}
         <br />
         Subclass Name:
@@ -97,15 +93,6 @@ export default class EditSubClass extends Component {
           onChange={e => this.txtOnChange(e)}
         />{" "}
         <br />
-        {/* mainClassId:
-        <input
-          type="text"
-          id="mainClassId"
-          name="mainClassId"
-          value={this.state.mainClassId || ""}
-          onChange={e => this.txtOnChange(e)}
-        />
-        <br /> */}
         Mainclass Id:
         <select id="mainClassId" onChange={e => this.txtOnChange(e)}>
           <option value={this.state.mainClassId || ""}>

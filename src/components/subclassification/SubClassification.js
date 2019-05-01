@@ -7,7 +7,9 @@ export default class AddSubClassification extends Component {
   state = {
     subClassId: "",
     subClassName: "",
-    mainClassId: "",
+    mainClassification: {
+      mainClassId: ""
+    },
     getMainClassId: [],
     getAllSubClassification: []
   };
@@ -15,17 +17,9 @@ export default class AddSubClassification extends Component {
   txtOnChange = e => {
     this.setState({
       [e.target.id]: e.target.value
-      // mainClassId: e.target.value
     });
     // console.log(e.target.value);
   };
-
-  // handleChange = e => {
-  //   this.setState({
-  //     mainClassId: e.target.value
-  //   });
-  //   console.log(e.target.value);
-  // };
 
   handleClick = e => {
     e.preventDefault();
@@ -37,11 +31,14 @@ export default class AddSubClassification extends Component {
         mainClassId: this.state.mainClassId
       }
     };
-
+    let newSubClass = [...this.state.getAllSubClassification, subClass];
     this.setState({
       subClassId: "",
       subClassName: "",
-      mainClassId: ""
+      mainClassification: {
+        mainClassId: ""
+      },
+      getAllSubClassification: newSubClass
     });
 
     SubClass.AddSubClass(subClass);
@@ -60,7 +57,7 @@ export default class AddSubClassification extends Component {
       .catch(error => this.setState({ error, isLoading: false }));
   }
 
-  fetchAllMainClass() {
+  fetchAllSubClass = () => {
     fetch(`http://localhost:8080/library/getAllSubClass`)
       .then(response => response.json())
       .then(data =>
@@ -70,16 +67,24 @@ export default class AddSubClassification extends Component {
         })
       )
       .catch(error => this.setState({ error, isLoading: false }));
-  }
+  };
 
   componentDidMount() {
     this.FetchMainClassId();
-    this.fetchAllMainClass();
+    this.fetchAllSubClass();
   }
 
   handleDelete = subClassId => {
     SubClass.DeleteSubClass(subClassId);
     console.log(" Successfully deleted " + subClassId);
+    const getAllSubClassification = this.state.getAllSubClassification.filter(
+      getAllSubClassification => {
+        return getAllSubClassification.subClassId !== subClassId;
+      }
+    );
+    this.setState({
+      getAllSubClassification
+    });
   };
 
   handleEdit = subClassId => {
@@ -87,18 +92,18 @@ export default class AddSubClassification extends Component {
     this.props.history.push(`/EditSubClass/${subClassId}`);
     console.log(subClassId);
   };
-  handleUpdate = subClassId => {
-    console.log(subClassId);
-    const subClassUpdate = {
-      subClassId: "S05", //this.state.subClassId,
-      subClassName: "aa", //this.state.subClassName,
-      mainClassification: {
-        mainClassId: "2" //this.state.mainClassId
-      }
-    };
-    SubClass.UpdateSubClass(subClassUpdate);
-    console.log(subClassUpdate);
-  };
+  // handleUpdate = subClassId => {
+  //   console.log(subClassId);
+  //   const subClassUpdate = {
+  //     subClassId: "S05", //this.state.subClassId,
+  //     subClassName: "aa", //this.state.subClassName,
+  //     mainClassification: {
+  //       mainClassId: "2" //this.state.mainClassId
+  //     }
+  //   };
+  //   SubClass.UpdateSubClass(subClassUpdate);
+  //   console.log(subClassUpdate);
+  // };
 
   render() {
     return (
