@@ -6,13 +6,10 @@ export default class Book extends Component {
   state = {
     id: "",
     bookName: "",
-    mainClassId: "",
     subClassification: {
-      mainClassId: "",
-      subClassName: "",
+      subClassId: "",
       mainClassification: {
-        mainClassId: "",
-        mainClassName: ""
+        mainClassId: ""
       }
     },
     getAllBook: [],
@@ -55,32 +52,44 @@ export default class Book extends Component {
       id: this.state.id,
       bookName: this.state.bookName,
       subClassification: {
-        subClassId: this.state.subClassId,
-        subClassName: this.state.subClassName,
-        mainClassification: {
-          mainClassId: this.state.mainClassId,
-          mainClassName: this.state.mainClassName
-        }
+        subClassId: this.state.subClassId
+      },
+      mainClassification: {
+        mainClassId: this.state.mainClassId
       }
     };
     let newBook = [...this.state.getAllBook, book];
     this.setState({
-      subClassId: "",
-      subClassName: "",
-
+      id: "",
+      bookName: "",
+      mainClassification: {
+        mainClassId: ""
+      },
       subClassification: {
-        mainClassId: "",
-        subClassName: "",
-        mainClassification: {
-          mainClassId: "",
-          mainClassName: ""
-        }
+        subClassId: ""
       },
       getAllBook: newBook
     });
 
     BookService.AddBook(book);
     console.log(book);
+  };
+
+  handleEdit = id => {
+    // this.props.history.push(`/EditSubClass`);
+    this.props.history.push(`/EditBook/${id}`);
+    console.log(id);
+  };
+
+  handleDelete = id => {
+    BookService.DeleteBook(id);
+    console.log(" Successfully deleted " + id);
+    const getAllBook = this.state.getAllBook.filter(getAllBook => {
+      return getAllBook.id !== id;
+    });
+    this.setState({
+      getAllBook
+    });
   };
 
   fetchAllMainClass = () => {
@@ -96,7 +105,7 @@ export default class Book extends Component {
   };
 
   fetchAllBook = () => {
-    fetch(`http://localhost:8080/library/getAllBook`)
+    fetch(`http://localhost:8080/library/getBookTable`)
       .then(response => response.json())
       .then(
         data =>
@@ -144,7 +153,9 @@ export default class Book extends Component {
           <select id="subClassId" onChange={e => this.txtOnChange(e)}>
             <option>--select--</option>
             {this.state.getAllSubClass.map(e => (
-              <option key={e.subClassId}>{e.subClassName}</option>
+              <option key={e.subClassId} value={e.subClassId}>
+                {e.subClassName}
+              </option>
             ))}
           </select>
 
@@ -157,10 +168,8 @@ export default class Book extends Component {
           const {
             id,
             bookName,
-            subClassification: {
-              subClassName,
-              mainClassification: { mainClassName }
-            }
+            mainClassification: { mainClassName },
+            subClassification: { subClassName }
           } = fetchBook;
           return (
             <div key={id}>
