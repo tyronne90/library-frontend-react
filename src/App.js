@@ -3,8 +3,8 @@ import "./App.css";
 
 // import SubClassIndex from "./components/subclassification/SubClassIndex";
 // import MainClassIndex from "./components/mainclassification/MainClassIndex";
-import BookIndex from "./components/book/BookIndex";
-
+// import BookIndex from "./components/book/BookIndex";
+import MainMenu from "./components/menu/Menu";
 class App extends Component {
   render() {
     return (
@@ -12,7 +12,7 @@ class App extends Component {
         <h1> Library</h1>
         {/* <MainClassIndex /> */}
         {/* <SubClassIndex /> */}
-        <BookIndex />
+        <MainMenu />
       </div>
     );
   }
