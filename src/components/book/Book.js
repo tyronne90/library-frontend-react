@@ -123,10 +123,17 @@ export default class Book extends Component {
     this.fetchAllBook();
   }
 
+  routeback = e => {
+    this.props.history.push(`/`);
+  };
+
   render() {
     return (
       <div>
         <h4> Book </h4>
+        <button className="fa fa-success" onClick={e => this.routeback(e)}>
+          Back
+        </button>
         <form>
           <input
             type="text"

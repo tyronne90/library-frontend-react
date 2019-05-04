@@ -5,11 +5,15 @@ export default class MainMenu extends Component {
     return (
       <div>
         {/* Method 1=Href */}
-        <a href="/main"> Href-MainClass</a>
+        <a href="/book"> Href-Book</a>
         <br />
         <br />
         {/* Method 2 =Link*/}
-        <Link to={`/main`}>Link-MainClass</Link>
+        <Link to={`/mainclassification`}>Mainclassification</Link>
+        <br />
+        <Link to={`/subclassification`}>Subclassification</Link>
+        <br />
+        <Link to={`/book`}>Book</Link>
       </div>
     );
   }
